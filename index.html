@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Be and Be Music — Sello Discográfico</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#0d0d0d; --paper:#f6f5f2; --ink:#1a1a1a; --line:#2a2a2a;
+    --line-light:#dedad2; --grey:#7a7a72; --accent:#b08d57;
+  }
+  :root:not([data-theme="light"]){ }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth; scroll-padding-top: env(safe-area-inset-top,0px);}
+  body{
+    background:var(--black); color:var(--paper); font-family:'Inter',sans-serif;
+    padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.serif{font-family:'Space Grotesk',sans-serif; font-weight:600; letter-spacing:-0.01em;}
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 24px;}
+  ::selection{background:var(--accent); color:#111;}
+
+  /* Nav */
+  header{position:fixed; top:0; left:0; width:100%; z-index:50; background:rgba(13,13,13,.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--line);}
+  header .wrap{height:76px; display:flex; align-items:center; justify-content:space-between;}
+  .brand{font-family:'Fraunces',serif; font-size:1.15rem; font-weight:500;}
+  nav{display:flex; gap:36px; font-size:.85rem; color:#b5b3ac;}
+  nav a{position:relative; padding-bottom:4px; transition:color .25s;}
+  nav a::after{content:''; position:absolute; left:0; bottom:0; width:0; height:1px; background:linear-gradient(90deg,#fff,#8a8a8a); transition:width .3s ease;}
+  nav a:hover{color:var(--paper);}
+  nav a:hover::after{width:100%;}
+  .nav-cta{position:relative; overflow:hidden; border:1px solid var(--paper); padding:9px 20px; font-size:.8rem; letter-spacing:.02em; transition:color .3s;}
+  .nav-cta::before{content:''; position:absolute; inset:0; background:linear-gradient(90deg,#fff,#c9c9c9); transform:translateX(-101%); transition:transform .35s ease; z-index:-1;}
+  .nav-cta:hover{color:var(--black);}
+  .nav-cta:hover::before{transform:translateX(0);}
+  #menuBtn{display:none; background:none; border:none; color:var(--paper); font-size:1.5rem; cursor:pointer;}
+  #mobileNav{display:none; flex-direction:column; gap:18px; padding:24px; border-top:1px solid var(--line); background:var(--black);}
+  #mobileNav a{font-size:.95rem; color:#d8d6d0;}
+
+  @media(max-width:860px){
+    nav, .nav-cta{display:none;}
+    #menuBtn{display:block;}
+    #mobileNav.open{display:flex;}
+  }
+
+  /* Hero */
+  .hero{position:relative; min-height:92vh; display:flex; align-items:center; padding-top:76px; border-bottom:1px solid var(--line); overflow:hidden;}
+  #heroCanvas{position:absolute; inset:0; width:100%; height:100%; z-index:0; opacity:.55;}
+  .hero .wrap{position:relative; z-index:1; display:grid; grid-template-columns:1fr; gap:28px;}
+  .kicker{font-size:.8rem; color:var(--grey); letter-spacing:.03em;}
+  .hero-title{font-size:clamp(4.2rem,15vw,11rem); line-height:.88; letter-spacing:-0.03em; display:flex; flex-wrap:wrap;}
+  .hero-title span{
+    display:inline-block; background:linear-gradient(180deg,#fff,#8f8f8f); -webkit-background-clip:text; background-clip:text; color:transparent;
+    transition:transform .35s cubic-bezier(.2,.8,.2,1), background .35s;
+  }
+  .hero-title span:hover{transform:translateY(-10px) scale(1.05); background:linear-gradient(180deg,#fff,#fff);}
+  .hero p{max-width:46ch; color:#b5b3ac; font-size:1.05rem; line-height:1.6; margin-top:8px;}
+  .hero-actions{display:flex; gap:16px; margin-top:20px; flex-wrap:wrap;}
+  .btn-solid,.btn-outline{position:relative; display:inline-block; padding:14px 28px; font-size:.88rem; font-weight:500; will-change:transform; transition:transform .18s ease, color .3s, border-color .3s;}
+  .btn-solid{background:none; color:var(--black); overflow:hidden; isolation:isolate;}
+  .btn-solid::before{content:''; position:absolute; inset:0; background:linear-gradient(135deg,#fff,#bdbdbd,#fff); background-size:200% 200%; z-index:-1; transition:background-position .6s ease;}
+  .btn-solid:hover::before{background-position:100% 100%;}
+  .btn-outline{border:1px solid var(--line-light); color:var(--paper); background:none;}
+  .btn-outline:hover{border-color:#fff; color:#fff;}
+
+  /* Section shared */
+  section{padding:110px 0; border-bottom:1px solid var(--line);}
+  .section-head{display:flex; justify-content:space-between; align-items:flex-end; gap:24px; margin-bottom:56px; flex-wrap:wrap;}
+  .section-head .kicker{margin-bottom:10px;}
+  .section-head h2{font-size:clamp(1.8rem,3.5vw,2.6rem);}
+  .section-head p{color:#a9a7a0; max-width:38ch; font-size:.95rem; line-height:1.55;}
+
+  /* About */
+  .about-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:64px;}
+  .about-grid p{color:#b5b3ac; line-height:1.7; margin-top:18px; font-size:.98rem;}
+  .stats{display:grid; grid-template-columns:1fr 1fr; border-top:1px solid var(--line); margin-top:8px;}
+  .stat{padding:26px 0; border-bottom:1px solid var(--line);}
+  .stat:nth-child(odd){padding-right:24px; border-right:1px solid var(--line);}
+  .stat-num{font-family:'Fraunces',serif; font-size:2.2rem;}
+  .stat-label{font-size:.78rem; color:var(--grey); margin-top:4px;}
+
+  /* Roster */
+  .roster-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line);}
+  .artist{background:var(--black); cursor:pointer; transition:background .3s, transform .3s; overflow:hidden;}
+  .artist:hover{background:linear-gradient(160deg,#1c1c1c,#0d0d0d); transform:translateY(-6px);}
+
+  /* --- Imagen del artista: solo cambia la ruta en el src del <img> --- */
+  .artist-img-wrap{position:relative; width:100%; height:200px; overflow:hidden; background:#151515;}
+  .artist-img{width:100%; height:100%; object-fit:cover; display:block; filter:grayscale(35%) brightness(.85); transition:filter .35s ease, transform .35s ease;}
+  .artist:hover .artist-img{filter:grayscale(0%) brightness(1); transform:scale(1.06);}
+
+  .artist-body{padding:22px;}
+  .artist-num{font-size:.75rem; color:var(--grey); font-variant-numeric:tabular-nums;}
+  .artist h3{font-size:1.15rem; margin-top:14px; transition:transform .3s;}
+  .artist:hover h3{transform:translateX(4px);}
+  .artist .genre{font-size:.78rem; color:var(--grey); margin-top:6px;}
+
+  /* Releases */
+  .rel-filters{display:flex; gap:8px; font-size:.8rem;}
+  .filter-btn{border:1px solid var(--line-light); padding:8px 16px; color:#b5b3ac; background:none; cursor:pointer;}
+  .filter-btn.active{background:var(--paper); color:var(--black); border-color:var(--paper);}
+  .releases-list{border-top:1px solid var(--line);}
+  .release-row{display:grid; grid-template-columns:40px 1fr auto auto; align-items:center; gap:20px; padding:20px 12px; margin:0 -12px; border-bottom:1px solid var(--line); font-size:.95rem; transition:background .25s, padding-left .25s;}
+  .release-row:hover{background:linear-gradient(90deg,rgba(255,255,255,.05),transparent); padding-left:20px;}
+  .release-row .idx{color:var(--grey); font-size:.8rem;}
+  .release-row .title{font-family:'Fraunces',serif; font-size:1.1rem;}
+  .release-row .artist-name{color:#a9a7a0; font-size:.85rem;}
+  .release-row .tag{color:var(--grey); font-size:.78rem;}
+  .play-btn{width:38px; height:38px; border:1px solid var(--line-light); border-radius:50%; display:flex; align-items:center; justify-content:center; background:none; color:var(--paper); cursor:pointer; flex-shrink:0;}
+  .play-btn:hover{background:var(--paper); color:var(--black);}
+
+  /* Services */
+  .services-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:0; border-top:1px solid var(--line); border-left:1px solid var(--line);}
+  .service{padding:34px 28px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); transition:background .3s;}
+  .service:hover{background:linear-gradient(160deg,#161616,transparent);}
+  .service .n{font-size:.78rem; color:var(--grey);}
+  .service h3{font-size:1.1rem; margin-top:34px; transition:transform .3s;}
+  .service:hover h3{transform:translateX(4px);}
+  .service p{font-size:.88rem; color:#a9a7a0; margin-top:10px; line-height:1.55;}
+
+  /* Demo form */
+  .demo-wrap{display:grid; grid-template-columns:.9fr 1.1fr; gap:64px;}
+  .demo-wrap p{color:#a9a7a0; line-height:1.6; margin-top:16px; font-size:.95rem;}
+  form{display:flex; flex-direction:column; gap:22px;}
+  .field-row{display:grid; grid-template-columns:1fr 1fr; gap:22px;}
+  label{display:block; font-size:.75rem; color:var(--grey); margin-bottom:8px; letter-spacing:.02em;}
+  input,select,textarea{width:100%; background:none; border:none; border-bottom:1px solid var(--line-light); color:var(--paper); padding:10px 0; font-family:'Inter',sans-serif; font-size:.95rem;}
+  input::placeholder,textarea::placeholder{color:#5f5d57;}
+  input:focus,select:focus,textarea:focus{outline:none; border-color:var(--paper);}
+  select option{background:var(--black);}
+  #successMsg{display:none; padding:14px 0; color:#c9c5ba; font-size:.9rem; border-bottom:1px solid var(--line-light);}
+
+  /* Press/contact */
+  .press-grid{display:grid; grid-template-columns:1fr 1fr; gap:64px;}
+  .press-grid ul{margin-top:20px; list-style:none;}
+  .press-grid li{font-size:.88rem; color:#a9a7a0; padding:10px 0; border-bottom:1px solid var(--line);}
+  .contact-item{padding:18px 0; border-bottom:1px solid var(--line);}
+  .contact-item h4{font-size:.78rem; color:var(--grey); margin-bottom:6px;}
+  .contact-item div{font-size:.98rem;}
+  .ig-link{display:inline-flex; align-items:center; gap:14px; font-size:.98rem; transition:color .3s;}
+  .ig-icon{width:42px; height:42px; border:1px solid var(--line-light); border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:background .3s, color .3s, border-color .3s, transform .3s;}
+  .ig-icon svg{width:20px; height:20px;}
+  .ig-link:hover .ig-icon{background:var(--paper); color:var(--black); border-color:var(--paper); transform:translateY(-3px);}
+  .ig-link:hover .ig-handle{color:var(--accent);}
+
+  footer{padding:36px 0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; font-size:.78rem; color:var(--grey);}
+
+  /* Modal */
+  #artistModal{position:fixed; inset:0; background:rgba(0,0,0,.88); display:none; align-items:center; justify-content:center; z-index:60; padding:20px;}
+  #artistModal.open{display:flex;}
+  .modal-box{background:var(--black); border:1px solid var(--line); max-width:520px; width:100%; padding:40px; position:relative;}
+  .modal-close{position:absolute; top:18px; right:18px; background:none; border:none; color:var(--paper); font-size:1.3rem; cursor:pointer;}
+  .modal-box .genre{font-size:.78rem; color:var(--accent);}
+  .modal-box h3{font-size:1.7rem; margin-top:10px;}
+  .modal-box p{color:#b5b3ac; font-size:.92rem; line-height:1.6; margin-top:18px;}
+
+  @media(max-width:860px){
+    .about-grid,.demo-wrap,.press-grid{grid-template-columns:1fr; gap:36px;}
+    .roster-grid{grid-template-columns:repeat(2,1fr);}
+    .services-grid{grid-template-columns:1fr;}
+    .field-row{grid-template-columns:1fr;}
+    .release-row{grid-template-columns:30px 1fr auto; font-size:.85rem;}
+    .release-row .tag{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="brand" href="#">Be and Be Music</a>
+    <nav>
+      <a href="#about">Nosotros</a>
+      <a href="#roster">Artistas</a>
+      <a href="#releases">Lanzamientos</a>
+      <a href="#services">Servicios</a>
+      <a href="#contact">Contacto</a>
+    </nav>
+    <a href="#demo" class="nav-cta">Enviar demo</a>
+    <button id="menuBtn" onclick="document.getElementById('mobileNav').classList.toggle('open')">☰</button>
+  </div>
+  <div id="mobileNav">
+    <a href="#about">Nosotros</a>
+    <a href="#roster">Artistas</a>
+    <a href="#releases">Lanzamientos</a>
+    <a href="#services">Servicios</a>
+    <a href="#contact">Contacto</a>
+    <a href="#demo">Enviar demo</a>
+  </div>
+</header>
+
+<section class="hero">
+  <canvas id="heroCanvas"></canvas>
+  <div class="wrap">
+    <span class="kicker">Sello independiente</span>
+    <h1 class="hero-title"><span>BE</span>&nbsp;<span>AND</span>&nbsp;<span>BE</span></h1>
+    <p></p>
+    <div class="hero-actions">
+      <a href="#releases" class="btn-solid">Ver catálogo</a>
+      <a href="#demo" class="btn-outline">Enviar tu demo</a>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap about-grid">
+    <div>
+      <span class="kicker">Nuestra filosofía</span>
+      <h2 class="serif" style="font-size:2.2rem; margin-top:10px;">Elevamos proyectos musicales con visión y propósito.</h2>
+      <p>En lugar de firmar por volumen, apostamos por la calidad. Nos aliamos con un grupo selecto de artistas para acompañarlos en cada fase creativa y estratégica: producción de estudio, mezcla y máster, concepto visual y estrategia de lanzamiento.
+
+Un equipo real y permanente respaldando tu sonido en cada paso.</p>
+      <p></p>
+    </div>
+    <div>
+      <div class="stats">
+        <div class="stat"><div class="stat-num"></div><div class="stat-label">Streams acumulados</div></div>
+        <div class="stat"><div class="stat-num"></div><div class="stat-label">Artistas firmados</div></div>
+        <div class="stat"><div class="stat-num"></div><div class="stat-label">Lanzamientos oficiales</div></div>
+        <div class="stat"><div class="stat-num"></div><div class="stat-label">Países alcanzados</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="roster">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="kicker">Talento firmado</span>
+        <h2 class="serif">Roster de artistas</h2>
+      </div>
+      <p></p>
+    </div>
+  </div>
+  <div class="roster-grid">
+    <div class="artist" onclick="openModal('RUBEN\'S','Hip-Hop','Rapero mexicano, originario de Nextipac-Zapopan Jalisco. Integrante del sello Be and Be Music, caracterizado por su estilo agresivo e ingenioso sobre ritmos de boom bap.')">
+      <div class="artist-img-wrap"><img class="artist-img" src="imagenesbab/rubens.jpg" alt="RUBENS"></div>
+      <div class="artist-body">
+        <div class="artist-num">01</div><h3>RUBENS</h3><div class="genre">Hip-Hop</div>
+      </div>
+    </div>
+    <div class="artist" onclick="openModal('LA VOZ DNS','Rap','Con una amplia trayectoria dentro del rap, originario del barrio Las Juntas, Jalisco, cuyo estilo está fuertemente influenciado por los ritmos callejeros latinos.')">
+      <div class="artist-img-wrap"><img class="artist-img" src="imagenesbab/lavoz.jpg" alt="LA VOZ DNS"></div>
+      <div class="artist-body">
+        <div class="artist-num">02</div><h3>LA VOZ DNS</h3><div class="genre">Rap</div>
+      </div>
+    </div>
+    <div class="artist" onclick="openModal('')">
+      <div class="artist-img-wrap"><img class="artist-img" src="imagenesbab/incognito.jpg" alt="Proximamente"></div>
+      <div class="artist-body">
+        <div class="artist-num">03</div><h3>Proximamente</h3><div class="genre">proximamente</div>
+      </div>
+    </div>
+    <div class="artist" onclick="openModal('')">
+      <div class="artist-img-wrap"><img class="artist-img" src="imagenesbab/incognito.jpg" alt="Proximamente"></div>
+      <div class="artist-body">
+        <div class="artist-num">04</div><h3>Proximamente</h3><div class="genre">Proximamente</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="releases">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="kicker"></span>
+        <h2 class="serif">Últimos lanzamientos</h2>
+      </div>
+     
+            <div class="rel-filters"></div>
+    </div>
+    <div class="releases-list" id="releasesList">
+      <div class="release-row" data-cat="electronic">
+        <button class="play-btn" data-url="https://www.youtube.com/watch?v=AqEkZAe69DQ" onclick="openSong(this)">▶</button>
+        <div><div class="title">Actitud-Ft Fifty,sideeffect</div><div class="artist-name">La voz DNS</div></div>
+        <div class="tag">Sencillo · 2026</div>
+        <div class="idx">01</div>
+      </div>
+      <div class="release-row" data-cat="urban">
+        <button class="play-btn" data-url="https://www.youtube.com/watch?v=en9MRGtDqms" onclick="openSong(this)">▶</button>
+        <div><div class="title">JORDAN</div><div class="artist-name">La voz DNS</div></div>
+        <div class="tag">Sencillo · 2026</div>
+        <div class="idx">02</div>
+      </div>
+      <div class="release-row" data-cat="pop">
+        <button class="play-btn" data-url="https://open.spotify.com/track/XXXX" onclick="openSong(this)">▶</button>
+        <div><div class="title"</div><div class="artist-name"></div></div>
+        <div class="tag"></div>
+        <div class="idx">03</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="kicker"></span>
+        <h2 class="serif">Servicios para artistas</h2>
+      </div>
+      <p></p>
+    </div>
+  </div>
+  <div class="services-grid">
+    <div class="service"><div class="n">01</div><h3>Producción, mezcla &amp; máster</h3><p>Estudios equipados con tecnología analógica y digital para llevar tu track al estándar exigido por radios y plataformas.</p></div>
+    <div class="service"><div class="n">02</div><h3>Distribución digital global</h3><p>Entrega directa en Spotify, Apple Music,  y YouTube Music.</p></div>
+    <div class="service"><div class="n">03</div><h3>Producción audiovisual</h3><p>Dirección de videoclips, fotografía conceptual y diseño de portadas de alto nivel estético.</p></div>
+  </div>
+</section>
+
+<section id="demo">
+  <div class="wrap demo-wrap">
+    <div>
+      <span class="kicker">A&amp;R listening room</span>
+      <h2 class="serif" style="font-size:2rem; margin-top:10px;">Envía tu demo</h2>
+      <p>Nuestro equipo de A&amp;R escucha todas las maquetas recibidas cada semana. Si tu proyecto encaja con nuestra visión, nos pondremos en contacto contigo.</p>
+      <div id="successMsg">Demo enviada. Nuestro equipo la revisará pronto.</div>
+    </div>
+    <form id="demoForm" onsubmit="return handleDemo(event)">
+      <input type="hidden" name="access_key" value="2184de4a-853c-4876-a279-eba9e7361fe0">
+      <input type="hidden" name="subject" value="Nueva demo - Be and Be Music">
+      <input type="checkbox" name="botcheck" style="display:none;">
+      <div class="field-row">
+        <div><label>Nombre / proyecto artístico</label><input type="text" name="artista" required placeholder="Tu nombre artístico"></div>
+        <div><label>Correo electrónico</label><input type="email" name="email" required placeholder="tu@correo.com"></div>
+      </div>
+      <div class="field-row">
+        <div>
+          <label>Género principal</label>
+          <select name="genero" required>
+            <option value="">Selecciona un género</option>
+            <option>Electrónica / House / Techno</option>
+            <option>Urbano / Trap / Reggaetón</option>
+            <option>Pop / Synth Pop</option>
+            <option>Indie / Rock alternativo</option>
+            <option>Otro</option>
+          </select>
+        </div>
+        <div><label>Enlace al demo</label><input type="url" name="enlace_demo" required placeholder="SoundCloud, Drive o Dropbox"></div>
+      </div>
+      <div><label>Mensaje</label><textarea name="mensaje" rows="3" placeholder="Cuéntanos sobre tu proyecto y el estado del track"></textarea></div>
+      <div style="margin-top:8px;"><button type="submit" class="btn-solid" style="border:none; cursor:pointer;">Enviar maqueta</button></div>
+    </form>
+  </div>
+</section>
+
+<section id="press" style="border-bottom:none;">
+  <div class="wrap press-grid">
+    <div>
+      <span class="kicker">Prensa &amp; promotores</span>
+      <h2 class="serif" style="font-size:1.8rem; margin-top:10px;">Media kit oficial</h2>
+      <ul>
+        <li>Logotipos (PNG, SVG, manual de identidad)</li>
+        <li>Fotografías en alta resolución del roster</li>
+        <li>Dossier corporativo y notas de prensa</li>
+      </ul>
+      <div style="margin-top:26px;"><button onclick="downloadKit()" class="btn-outline" style="cursor:pointer; background:none;">Descargar press kit</button></div>
+    </div>
+    <div id="contact">
+      <span class="kicker">Oficinas &amp; booking</span>
+      <h2 class="serif" style="font-size:1.8rem; margin-top:10px 0;">Contacto</h2>
+      <div class="contact-item"><h4>Correo directo</h4><div>bandbmusicc@gmail.com</div></div>
+      <div class="contact-item">
+        <h4>Instagram</h4>
+        <a class="ig-link" href="https://www.instagram.com/beandbemusic" target="_blank" rel="noopener" aria-label="Instagram de Be and Be Music">
+          <span class="ig-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="3" width="18" height="18" rx="5"/>
+              <circle cx="12" cy="12" r="4"/>
+              <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+            </svg>
+          </span>
+          <span class="ig-handle">@beandbemusic</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap">
+  <span class="brand" style="font-size:.95rem;">Be and Be Music</span>
+  <span>© 2026 Be and Be Music. Todos los derechos reservados.</span>
+  <span>Términos · Privacidad</span>
+</footer>
+
+<div id="artistModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <span class="genre" id="mGenre"></span>
+    <h3 class="serif" id="mName"></h3>
+    <p id="mBio"></p>
+  </div>
+</div>
+
+<script>
+(function(){
+  const canvas=document.getElementById('heroCanvas');
+  const ctx=canvas.getContext('2d');
+  let w,h,nodes=[];
+  function resize(){
+    w=canvas.width=canvas.offsetWidth; h=canvas.height=canvas.offsetHeight;
+  }
+  window.addEventListener('resize',resize);
+  resize();
+  const N=42;
+  for(let i=0;i<N;i++){
+    nodes.push({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25,r:Math.random()*1.6+.6});
+  }
+  function tick(){
+    ctx.clearRect(0,0,w,h);
+    nodes.forEach(p=>{
+      p.x+=p.vx; p.y+=p.vy;
+      if(p.x<0||p.x>w)p.vx*=-1;
+      if(p.y<0||p.y>h)p.vy*=-1;
+    });
+    for(let i=0;i<N;i++){
+      for(let j=i+1;j<N;j++){
+        const a=nodes[i],b=nodes[j];
+        const d=Math.hypot(a.x-b.x,a.y-b.y);
+        if(d<150){
+          ctx.strokeStyle='rgba(180,180,180,'+(0.14*(1-d/150))+')';
+          ctx.lineWidth=1;
+          ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
+        }
+      }
+    }
+    nodes.forEach(p=>{
+      ctx.fillStyle='rgba(220,220,220,0.6)';
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
+    });
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
+
+// Magnetic hover on buttons
+document.querySelectorAll('.btn-solid,.btn-outline').forEach(btn=>{
+  btn.addEventListener('mousemove',e=>{
+    const r=btn.getBoundingClientRect();
+    const x=e.clientX-r.left-r.width/2, y=e.clientY-r.top-r.height/2;
+    btn.style.transform=`translate(${x*0.18}px,${y*0.35}px)`;
+  });
+  btn.addEventListener('mouseleave',()=>{btn.style.transform='translate(0,0)';});
+});
+
+function openModal(name,genre,bio){
+  document.getElementById('mName').innerText=name;
+  document.getElementById('mGenre').innerText=genre;
+  document.getElementById('mBio').innerText=bio;
+  document.getElementById('artistModal').classList.add('open');
+}
+function closeModal(){document.getElementById('artistModal').classList.remove('open');}
+
+function filterReleases(cat,btn){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.release-row').forEach(r=>{
+    r.style.display = (cat==='all'||r.dataset.cat===cat) ? 'grid' : 'none';
+  });
+}
+
+let audioCtx=null;
+function openSong(btn){
+  const url = btn.dataset.url;
+  if(!url) return;
+  window.open(url, '_blank', 'noopener');
+}
+
+async function handleDemo(e){
+  e.preventDefault();
+  const form = e.target;
+  try{
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method:'POST',
+      body:new FormData(form)
+    });
+    const data = await res.json();
+    if(data.success){
+      document.getElementById('successMsg').style.display='block';
+      form.reset();
+    } else {
+      alert('No se pudo enviar. Intenta de nuevo.');
+    }
+  }catch(err){
+    alert('Error de conexión. Intenta de nuevo.');
+  }
+  return false;
+}
+
+function downloadKit(){
+  const content="BE AND BE MUSIC — PRESS KIT\n\n- Logotipos vectoriales\n- Fotografías en alta resolución\n- Dossier corporativo\n\nContacto: contacto@beandbemusic.com";
+  const blob=new Blob([content],{type:'text/plain'});
+  const link=document.createElement('a');
+  link.href=URL.createObjectURL(blob);
+  link.download='BeAndBeMusic_PressKit.txt';
+  document.body.appendChild(link); link.click(); document.body.removeChild(link);
+}
+</script>
+</body>
+</html>
